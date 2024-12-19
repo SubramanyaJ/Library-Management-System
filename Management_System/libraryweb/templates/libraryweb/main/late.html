@@ -1,0 +1,42 @@
+{% extends "libraryweb/base.html" %}
+
+{% block title %}Late Fees{% endblock %}
+
+{% block content %}
+<section class="my-8 max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-2xl font-bold text-blue-700 mb-6">Late Fees</h1>
+
+    {% if late_fees %}
+        <table class="w-full border-collapse border border-gray-300 text-left">
+            <thead>
+                <tr class="bg-blue-200 text-gray-700">
+                    <th class="p-3 border border-gray-300">Book Title</th>
+                    <th class="p-3 border border-gray-300">Return Date</th>
+                    <th class="p-3 border border-gray-300">Days Late</th>
+                    <th class="p-3 border border-gray-300">Late Fee (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in late_fees %}
+                    <tr class="hover:bg-gray-100">
+                        <td class="p-3 border border-gray-300">
+                            {{ fee.user_borrowed.book.book.title }}
+                        </td>
+                        <td class="p-3 border border-gray-300">
+                            {{ fee.user_borrowed.return_date|date:"F j, Y" }}
+                        </td>
+                        <td class="p-3 border border-gray-300">
+                            {{ fee.days_late }}
+                        </td>
+                        <td class="p-3 border border-gray-300">
+                            ₹{{ fee.fee }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-gray-600">No late fees found.</p>
+    {% endif %}
+</section>
+{% endblock %}

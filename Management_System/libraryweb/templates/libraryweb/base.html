@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>{% block title %}Library Management System{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    {% block css %}{% endblock %}
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    {% if not lib_num %}
+        <script>
+            window.location.href = "{% url 'libraryweb:signin' %}";
+        </script>
+    {% endif %}
+
+    <!-- Navbar -->
+    <nav class="navbar p-4 text-white shadow-md relative">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Library System text -->
+            <a href="{% url 'libraryweb:home' lib_num=lib_num %}" class="text-2xl font-bold">Library System</a>
+
+            <!-- Right side: Hamburger Menu and Library Number -->
+            <div class="navbar-right flex items-center gap-6">
+                <!-- Library Number -->
+                <div id="library-number">
+                    {% if lib_num %}
+                        <p>Your Library Number: {{ lib_num }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Hamburger Menu Icon -->
+                <button id="hamburger-icon" class="focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sliding Menu -->
+    <div id="menu" class="hidden">
+        <div class="flex flex-col items-start p-4 space-y-4">
+            <a href="{% url 'libraryweb:home' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Home</a>
+            <a href="{% url 'libraryweb:profile' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Profile</a>
+            <a href="{% url 'libraryweb:search' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Search</a>
+            <a href="{% url 'libraryweb:borrow' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Borrowed Books</a>
+            <a href="{% url 'libraryweb:late' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Late Fees</a>
+            <a href="{% url 'libraryweb:history' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">History</a>
+            <a href="{% url 'libraryweb:request' lib_num=lib_num %}" class="text-lg text-white hover:text-gray-300">Request</a>
+            <form method="post" action="{% url 'libraryweb:signout' %}">
+                {% csrf_token %}
+                <button type="submit" class="text-lg text-white hover:text-gray-300">Sign Out</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <main class="container mx-auto mt-6 px-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-200 p-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">Library Management System &copy; {% now "Y" %}. All rights reserved.</p>
+            <a href="{% url 'libraryweb:credits' lib_num=lib_num %}" 
+               class="inline-flex items-center mt-2 text-lg text-blue-400 hover:text-white transition-colors duration-300">
+                About Us
+            </a>
+        </div>
+    </footer>
+
+    {% block javascript %}{% endblock %}
+    <script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>

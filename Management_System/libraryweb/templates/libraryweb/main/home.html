@@ -1,0 +1,42 @@
+{% extends "libraryweb/base.html" %}
+{% load static %}
+
+{% block title %}Home - Library Management System{% endblock %}
+{% block css %}
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+<section class="my-8 popular-books-section">
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-6">Most Popular Books</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {% for book in popular_books %}
+        <a href="{% url 'libraryweb:detail' lib_num=lib_num isbn=book.isbn %}" class="block">
+            <div class="book-card bg-white shadow-lg rounded-lg overflow-hidden">
+            <!-- Book Cover Container -->
+                <div class="relative w-full overflow-hidden">
+                    <img src="{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'images/placeholder-book.png' %}{% endif %}"> 
+                </div>
+            <!-- Book Title -->
+            <div class="p-4">
+                <h3 class="font-semibold text-lg text-gray-800">{{ book.title }}</h3>
+                <p class="text-gray-600">Author: {{ book.author }}</p>
+                <p class="text-gray-600">Genre: {{ book.genre }}</p>
+                <p class="text-gray-600">ISBN: {{ book.isbn }}</p>
+                <p class="text-sm text-yellow-500">Rating: {{ book.avg_rating|default:0|floatformat:1 }}</p>
+                <p class="text-sm text-gray-500">Borrowed: {{ book.borrowed_count }}</p>
+            </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="my-8">
+    <a href={% url "libraryweb:search" lib_num=lib_num %}>
+        <h2 id="browse-books" class="text-2xl font-bold text-blue-700 mb-4">Browse All Books</h2>
+    </a>
+    <!-- Additional book list can go here -->
+</section>
+
+{% endblock %}

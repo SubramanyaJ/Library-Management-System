@@ -1,0 +1,34 @@
+/* Optional: Custom styles for your book section */
+
+/* Popular Books Section */
+.popular-books-section h2 {
+    color: #1e3a8a; /* Tailwind's blue-700 */
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem; /* Adjust spacing as needed */
+}
+
+/* Book Card Styling */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: You can adjust the spacing for the text in each book card */
+.book-card .p-4 {
+    padding: 16px;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.book-card .p-4 h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}

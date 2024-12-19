@@ -1,0 +1,99 @@
+/* Navbar styling */
+.navbar {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+/* General body and font styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content area */
+main {
+    flex-grow: 1; /* Makes the main content take up the available space */
+}
+
+/* Footer styling */
+footer {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* Sliding Menu */
+#menu {
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: -200px; /* Initially off-screen */
+    width: 200px;
+    height: 100vh;
+    background-color: #1E40AF;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#menu.show {
+    transform: translateX(200px); /* Slide in from the left */
+}
+
+/* Menu Links Styling */
+#menu a {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#menu a:hover {
+    color: #d1d5db;
+}
+
+/* Navbar right section */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Library Number */
+#library-number {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Hamburger icon */
+#hamburger-icon {
+    cursor: pointer;
+    color: white;
+}
+
+/* Pagination fixed above the footer */
+.pagination-container {
+    position: relative;
+    bottom: 3rem; /* This positions the pagination above the footer */
+    width: 100%;
+    margin-top: auto; /* Ensures pagination stays at the bottom of the content but above the footer */
+}
+
+.pagination {
+    padding-bottom: 1rem; /* Adds some space at the bottom of the pagination */
+}

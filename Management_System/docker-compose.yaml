@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:2305"
+    container_name: Management_System
+    volumes:
+      - .:/Management_System
+    ports:
+      - "2305:2305"

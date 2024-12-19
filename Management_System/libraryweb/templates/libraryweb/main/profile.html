@@ -1,0 +1,85 @@
+{% extends "libraryweb/base.html" %}
+{% load static %}
+
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Profile</h1>
+    <form method="POST" action="{% url 'libraryweb:update_profile' lib_num=lib_num %}" id="profile-form">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                class="editable-field block w-full p-2 border border-gray-300 rounded-md"
+                value="{{ user.username }}"
+                data-original-value="{{ user.username }}"
+                disabled
+            />
+        </div>
+        <div class="mb-4">
+            <label for="fav_genre" class="block text-sm font-medium text-gray-700">Favorite Genre</label>
+            <input
+                type="text"
+                id="fav_genre"
+                name="fav_genre"
+                class="editable-field block w-full p-2 border border-gray-300 rounded-md"
+                value="{{ library_profile.fav_genre }}"
+                data-original-value="{{ library_profile.fav_genre }}"
+                disabled
+            />
+        </div>
+        <div class="mb-4">
+            <label for="lib_num" class="block text-sm font-medium text-gray-700">Library Number</label>
+            <input
+                type="text"
+                id="lib_num"
+                name="lib_num"
+                class="block w-full p-2 border border-gray-300 rounded-md bg-gray-100"
+                value="{{ library_profile.lib_num }}"
+                readonly
+                disabled
+            />
+        </div>
+        <div class="flex space-x-4">
+            <button
+                type="button"
+                id="edit-btn"
+                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
+                Edit
+            </button>
+            <button
+                type="submit"
+                id="save-btn"
+                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 hidden"
+            >
+                Save
+            </button>
+            <button
+                type="button"
+                id="cancel-btn"
+                class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 hidden"
+            >
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Modal for success/error messages -->
+<div id="modal" class="fixed inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 hidden">
+    <div class="bg-white p-4 rounded-lg shadow-md w-1/3 text-center">
+        <p id="modal-message" class="text-lg"></p>
+        <button id="close-modal" class="mt-4 px-4 py-2 bg-gray-600 text-white rounded-md">Close</button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

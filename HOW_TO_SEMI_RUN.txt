@@ -1,0 +1,14 @@
+
+Once you download this in your command prompt execute the following lines, line by line in vs code
+#Optional do it in virtual env 
+#download django ver 4.2.4
+#download any python version
+
+2.cd library_management_system
+#it goes to the project of django file
+(before this go to settings.py and set debug=False and if in case it doesn't work change allowed hosts to '*') 
+
+3.python manage.py runserver
+#there comes a server ctrl+right click on it to open in browser something like this given below
+#http://127.0.0.1:8000/
+#once in website retype above in browser to http://127.0.0.1:8000/Library/Home/

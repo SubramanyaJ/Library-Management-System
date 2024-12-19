@@ -1,0 +1,24 @@
+{% extends 'libraryweb/auth.html' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-center text-blue-600 mb-4">Sign In</h2>
+<form method="post" action="{% url 'libraryweb:signin' %}" class="space-y-4">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Render the form fields -->
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        Sign In
+    </button>
+</form>
+<p class="text-sm text-center mt-4 text-gray-600">
+    <a href="{% url 'libraryweb:signup' %}" class="text-blue-500 hover:underline">Create an Account</a> |
+    <a href="{% url 'libraryweb:verify_user' %}" class="text-blue-500 hover:underline">Forgot Password?</a>
+</p>
+
+<!-- Link to default Django admin login page -->
+<p class="text-sm text-center mt-4 text-gray-600">
+    <a href="/admin/login/" class="text-blue-500 hover:underline">Go to Admin Login</a>
+</p>
+
+{% endblock %}

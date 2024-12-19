@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error | Library Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
+    <div class="text-center p-6 max-w-lg mx-auto">
+        <!-- Error Code -->
+        <h1 class="text-6xl font-bold text-blue-600">Oops!</h1>
+        <p class="text-xl font-semibold text-gray-700 mt-4">Something went wrong.</p>
+        
+        <!-- Description -->
+        <p class="mt-2 text-gray-600">
+            The page you are looking for might be missing or temporarily unavailable.
+        </p>
+
+        <!-- Illustration -->
+        <div class="mt-6">
+            <img src="https://cdn-icons-png.flaticon.com/512/868/868753.png" alt="Error Illustration" class="w-32 mx-auto">
+        </div>
+
+        <!-- Navigation Options -->
+        <div class="mt-6 space-y-4">
+            {% if lib_num %}
+                <a href="{% url 'libraryweb:home' lib_num=lib_num %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Back to Home
+                </a>
+            {% else %}
+                <a href="{% url 'libraryweb:signout' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Back to Signin
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

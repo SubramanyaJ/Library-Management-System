@@ -1,0 +1,14 @@
+/* search.css */
+
+/* Style adjustments for the search page */
+.book-card .book-cover img {
+    height: auto;
+}
+
+.book-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+}

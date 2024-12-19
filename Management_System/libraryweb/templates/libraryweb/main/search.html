@@ -1,0 +1,55 @@
+{% extends "libraryweb/base.html" %}
+{% load static %}
+
+{% block title %}Search - Library Management System{% endblock %}
+{% block css %}<link href="{% static 'css/search.css' %}" rel="stylesheet">{% endblock css %}
+
+{% block content %}
+<section class="my-8">
+    <!-- Search Bar -->
+    <h2 class="text-3xl font-bold text-center text-blue-700 mb-6">Search for Books</h2>
+    <div class="flex justify-center mb-8">
+        <form method="GET" action="{% url 'libraryweb:search' lib_num=lib_num %}" class="flex space-x-2">
+            <input 
+                type="text" 
+                name="query" 
+                placeholder="Search by title, author, genre, ISBN..." 
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value="{{ request.GET.query|default_if_none:'' }}"
+            />
+            <button 
+                type="submit" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+                Search
+            </button>
+        </form>
+    </div>
+
+    <!-- Book List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {% for book in books %}
+        <a href="{% url 'libraryweb:detail' lib_num=lib_num isbn=book.isbn %}" class="block">
+            <div class="book-card bg-white shadow-lg rounded-lg overflow-hidden">
+                <div class="book-cover">
+                    <img src="{% if book.cover_image %}{{ book.cover_image.url }}{% else %}{% static 'images/placeholder-book.png' %}{% endif %}" 
+                    alt="{{ book.title }}" 
+                    class="w-full h-full object-scale-down ">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-lg text-gray-800">{{ book.title }}</h3>
+                    <p class="text-gray-600">Author: {{ book.author }}</p>
+                    <p class="text-gray-600">Genre: {{ book.genre }}</p>
+                    <p class="text-gray-600">ISBN: {{ book.isbn }}</p>
+                    <p class="text-sm text-yellow-500">Rating: {{ book.avg_rating|default:0|floatformat:1 }}</p>
+                    <p class="text-sm text-gray-500">Borrowed: {{ book.borrowed_count }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Pagination -->
+{% include "pagination.html" with page=page_obj %}
+{% endblock %}
